@@ -2,12 +2,12 @@
   "manifest_version": 2,
   "name": "Single Key Shortcuts",
   "description": "Navigate by pressing a single key",
-  "version": "0.0.2",
+  "version": "0.0.3",
 
   "author": "jhoekx",
   "homepage_url": "https://github.com/jhoekx/singlekeyshortcuts",
 
-  "permissions": [],
+  "permissions": ["storage"],
 
   "icons": {
     "48": "icons/key-1.svg",
@@ -24,5 +24,10 @@
 
   "background": {
     "scripts": [ "background.js" ]
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
   }
 }

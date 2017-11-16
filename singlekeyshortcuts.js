@@ -17,12 +17,22 @@ var commands = {
     }
 };
 
-var keys = {
-    "z": "historyBack",
-    "x": "historyForward",
-    "c": "tabPrevious",
-    "v": "tabNext"
-};
+var shortcuts = null;
+var defaultShortcuts = [
+    {key: "z", command: "historyBack"},
+    {key: "x", command: "historyForward"},
+    {key: "c", command: "tabPrevious"},
+    {key: "v", command: "tabNext"}
+];
+
+function updateShortcuts(config) {
+    shortcuts = {};
+    config.forEach(function (shortcut) {
+        if (shortcut.key && shortcut.command) {
+            shortcuts[shortcut.key] = shortcut.command;
+        }
+    });
+}
 
 function isFocusedOnInput(event) {
     var element = event.target;
@@ -58,6 +68,21 @@ function isMetaKeyPressed(event) {
     return false;
 }
 
+browser.storage.local.get("shortcuts").then(function (data) {
+    if (data.shortcuts !== undefined) {
+        updateShortcuts(data.shortcuts);
+    }
+});
+
+browser.storage.onChanged.addListener(function (changes, areaName) {
+    if (areaName != "local") {
+        return;
+    }
+    if (changes.shortcuts && changes.shortcuts.newValue) {
+        updateShortcuts(changes.shortcuts.newValue);
+    }
+});
+
 document.addEventListener("keydown", function (event) {
     if (isFocusedOnInput(event)) {
         return;
@@ -65,6 +90,11 @@ document.addEventListener("keydown", function (event) {
 
     if (isMetaKeyPressed(event)) {
         return;
+    }
+
+    var keys = shortcuts;
+    if (keys === null) {
+        updateShortcuts(defaultShortcuts);
     }
 
     if (keys.hasOwnProperty(event.key)) {
