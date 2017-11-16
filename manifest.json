@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Single Key Shortcuts",
   "description": "Navigate by pressing a single key",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "author": "jhoekx",
   "homepage_url": "https://github.com/jhoekx/singlekeyshortcuts",
@@ -17,7 +17,8 @@
   "content_scripts": [
     {
       "matches": [ "*://*/*", "file:///*" ],
-      "js": [ "singlekeyshortcuts.js" ]
+      "js": [ "singlekeyshortcuts.js" ],
+      "run_at": "document_start"
     }
   ],
 
