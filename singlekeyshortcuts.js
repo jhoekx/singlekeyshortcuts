@@ -2,19 +2,26 @@
 
 // single key shortcuts
 
-var keys = {
-    "z": function () {
+var commands = {
+    historyBack: function () {
         window.history.back();
     },
-    "x": function () {
+    historyForward: function () {
         window.history.forward();
     },
-    "c": function () {
+    tabPrevious: function () {
         browser.runtime.sendMessage({command: "previousTab"});
     },
-    "v": function () {
+    tabNext:function () {
         browser.runtime.sendMessage({command: "nextTab"});
     }
+};
+
+var keys = {
+    "z": "historyBack",
+    "x": "historyForward",
+    "c": "tabPrevious",
+    "v": "tabNext"
 };
 
 function isFocusedOnInput(event) {
@@ -61,8 +68,10 @@ document.addEventListener("keydown", function (event) {
     }
 
     if (keys.hasOwnProperty(event.key)) {
-        keys[event.key](event);
-        event.preventDefault();
-        event.stopPropagation();
+        if (commands.hasOwnProperty(keys[event.key])) {
+            commands[keys[event.key]](event);
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 })
