@@ -1,28 +1,26 @@
 # Single Key Shortcuts
 
-A WebExtension that provides a few hardcoded old-Opera style shortcuts.
+A WebExtension that provides a few old-Opera style shortcuts.
 
 1. z: history back
 1. x: history forward
 1. c: previous tab
 1. v: next tab
 
-## Building
+## Development
 
-The configuration page uses vue.js.
+Install [web-ext](https://github.com/mozilla/web-ext):
 
-Install with:
+`$ npm install web-ext --save-dev`
 
-`npm install`
+Start a development instance of Firefox using:
 
-Build with:
+`$ npx web-ext run`
 
-`npm run build`
+## Release
 
-This generates `dist/build.js`
-
-## Packaging
+Increase the version number in [manifest.json](manifest.json).
 
 Package with:
 
-`./package.sh`
+`$ npx web-ext build`

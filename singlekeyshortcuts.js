@@ -74,10 +74,7 @@ browser.storage.local.get("shortcuts").then(function (data) {
     }
 });
 
-browser.storage.onChanged.addListener(function (changes, areaName) {
-    if (areaName != "local") {
-        return;
-    }
+browser.storage.local.onChanged.addListener(function (changes) {
     if (changes.shortcuts && changes.shortcuts.newValue) {
         updateShortcuts(changes.shortcuts.newValue);
     }
@@ -95,6 +92,7 @@ document.addEventListener("keydown", function (event) {
     var keys = shortcuts;
     if (keys === null) {
         updateShortcuts(defaultShortcuts);
+        keys = shortcuts;
     }
 
     if (keys.hasOwnProperty(event.key)) {
@@ -104,4 +102,4 @@ document.addEventListener("keydown", function (event) {
             event.stopPropagation();
         }
     }
-})
+}, false);

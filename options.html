@@ -2,6 +2,30 @@
 <meta charset="utf-8">
 <title>Single Key Shortcuts Options</title>
 
-<div id="app"></div>
+<style>
+    #shortcuts form {
+        margin-bottom: 0.5em;
+    }
+</style>
 
-<script src="dist/options.js"></script>
+<template id="shortcut">
+    <form>
+        <input type="text" name="key" placeholder="key">
+        <select name="command">
+            <option value="historyBack">History Back</option>
+            <option value="historyForward">History Forward</option>
+            <option value="tabPrevious">Previous Tab</option>
+            <option value="tabNext">Next Tab</option>
+        </select>
+        <button name="remove" class="default">Remove</button>
+    </form>
+</template>
+
+<div id="shortcuts">
+    <div></div>
+    <p>
+        <button name="add">Add</button>
+    </p>
+</div>
+
+<script src="options.js"></script>
